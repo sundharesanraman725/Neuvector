@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: sundhar725/nginx:noroot2
+        image: <Docker Repo name/image name:tag>
         ports:
         - containerPort: 8080
 
