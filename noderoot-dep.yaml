@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: noderootpod
+  name: noderootpod
+spec:
+node  replicas: 1
+  selector:
+    matchLabels:
+      app: noderootpod
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: noderootpod
+    spec:
+      hostNetwork: true #1
+      hostPID: true #1
+      hostIPC: true #1
+      containers:
+      - name: noderootpod
+        image: alpine
+        securityContext:
+          privileged: true #2
+        volumeMounts:
+        - mountPath: /host #3
+          name: noderoot
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
+      volumes:
+      - name: noderoot
+        hostPath:
+          path: /      #3
+status: {}
